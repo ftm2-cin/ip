@@ -1,144 +1,88 @@
 #include <stdio.h>
-#include <string.h>
-#include <math.h>
-#include <stdlib.h>
 
 int main()
 {
-    int a, c, m, qt1, qt2, qt3, qt4, v1, v2, v3, v4, resto1, resto2;
+    int a = 0, c = 0, m = 0, qt1 = 0, qt2 = 0, qt3 = 0, qt4 = 0, qt5 = 0, v1, v2, v3, v4, v5, resto1, resto2;
     scanf("%d %d %d", &a, &c, &m);
     resto1 = a % m;
     resto2 = c % m;
-    if (a >= 1 && a <= 100000 && c >= 1 && c <= 100000 && m >= 1 && m <= 20)
+    if (a > m)
     {
-        if (a % m == 0 && c % m == 0)
+        qt1 = a / m;
+        a = resto1;
+    }
+    else
+    {
+        qt1 = 1;
+        a = 0;
+    }
+
+    if (c > m)
+    {
+        qt2 = c / m;
+        c = resto2;
+    }
+    else
+    {
+        qt2 = 1;
+        c = 0;
+    }
+
+    if (a + c == m)
+    {
+        qt5 += 1;
+    }
+    else if (resto1 % 2 == 0 && resto2 % 2 == 0 && (resto1 + resto2) != resto1 && (resto1 + resto2) != resto2)
+    {
+        qt5 += ((a + c) / m) + 1;
+    }
+    else
+    {
+        if (a >= 4)
         {
-            qt1 = a / m;
-            qt2 = c / m;
-            v1 = qt1 * (3 * m);
-            v2 = qt2 * (2 * m);
-            printf("%d mesas com adultos: R$%d\n", qt1, v1);
-            printf("%d mesas com criancas: R$%d\n", qt2, v2);
+            qt1 = qt1 + 1;
         }
-        else if (resto1 + resto2 == m)
+        else
         {
-            qt1 = ((a - a % m) / m);
-            qt2 = ((c - c % m) / m);
-            qt3 = 1;
-            v1 = qt1 * (3 * m);
-            v2 = qt2 * (2 * m);
-            v3 = qt3 * (2 * m);
-            printf("%d mesas com adultos: R$%d\n", qt1, v1);
-            printf("%d mesas com criancas: R$%d\n", qt2, v2);
-            printf("%d mesas mistas: R$%d\n", qt3, v3);
+            qt3 = a + 1;
+            qt1 = qt3 - 1;
         }
-        else if (resto1 % 2 == 0 && resto2 % 2 == 0 && (resto1 + resto2) != resto1 && (resto1 + resto2) != resto2)
+        if (c >= 4)
         {
-            qt1 = ((a - a % m) / m);
-            qt2 = ((c - c % m) / m);
-            if (m >(resto1 + resto2))
-            {
-                qt3 = 1;
-            }else
-                qt3 = 2;
-            
-            v1 = qt1 * (3 * m);
-            v2 = qt2 * (2 * m);
-            v3 = qt3 * (2 * m);
-            printf("%d mesas com adultos: R$%d\n", qt1, v1);
-            printf("%d mesas com criancas: R$%d\n", qt2, v2);
-            printf("%d mesas mistas: R$%d\n", qt3, v3);
+            qt2 += 1;
         }
-        else if (m <(resto1 + resto2))
+        else
         {
-            if (resto1 >= 4)
-            {
-                qt1 = ((a - a % m) / m) + 1;
-                v1 = qt1 * (3 * m);
-                qt2 = ((c - c % m) / m) - resto2;
-                v2 = qt2 * (2 * m);
-                qt3 = resto2;
-                v3 = ((qt3 * (3 * m)) + (resto2 * 3));
-                printf("%d mesas com adultos: R$%d\n", qt1, v1);
-                if (v2 != 0)
-                {
-                    printf("%d mesas com criancas: R$%d\n", qt2, v2);
-                }
-                printf("%d mesas com criancas+1: R$%d\n", qt3, v3);
-            }
-            else if (resto2 >= 4)
-            {
-                qt1 = ((c - c % m) / m) + 1;
-                v1 = qt1 * (2 * m);
-                qt2 = ((a - a % m) / m) - resto1;
-                v2 = qt2 * (3 * m);
-                qt3 = resto1;
-                v3 = ((qt3 * (4 * m)) + (resto1 * 4));
-                if (v2 != 0)
-                {
-                    printf("%d mesas com adultos: R$%d\n", qt2, v2);
-                }
-                printf("%d mesas com adultos+1: R$%d\n", qt3, v3);
-                printf("%d mesas com criancas: R$%d\n", qt1, v1);
-            }
-        }
-        else if (resto1 >= 1 && resto1 < 4 || resto2 >= 1 && resto2 < 4)
-        {
-            qt1 = ((a - a % m) / m);
-            qt2 = ((c - c % m) / m);
-            qt3 = (resto1);
-            qt4 = (resto2);
-            v1 = (qt1 - resto1) * (3 * m);
-            v2 = (qt2 - resto2) * (2 * m);
-            v3 = ((qt3 * (4 * m)) + (resto1 * 4));
-            v4 = ((qt4 * (3 * m)) + (resto2 * 3));
-            if (v1 != 0)
-            {
-                v1 = (qt1 - resto1) * (3 * m);
-                printf("%d mesas com adultos: R$%d\n", qt1, v1);
-            }
-            if (resto1 != 0)
-            {
-                v1 = qt1 * (3 * m);
-                printf("%d mesas com adultos+1: R$%d\n", qt3, v3);
-            }
-            if (v2 != 0)
-            {
-                v2 = (qt2 - resto2) * (2 * m);
-                printf("%d mesas com criancas: R$%d\n", qt2, v2);
-            }
-            if (resto2 != 0)
-            {
-                v2 = qt2 * (2 * m);
-                printf("%d mesas com criancas+1: R$%d\n", qt4, v4);
-            }
-        }
-        else if (resto1 >= 4 && resto2 >= 4)
-        {
-            qt1 = ((a - a % m) / m) + 1;
-            qt2 = ((c - c % m) / m) + 1;
-            v1 = qt1 * (3 * m);
-            v2 = qt2 * (2 * m);
-            printf("%d mesas com adultos: R$%d\n", qt1, v1);
-            printf("%d mesas com criancas: R$%d\n", qt2, v2);
-        }
-        else if (resto1 >= 4)
-        {
-            qt1 = ((a - a % m) / m) + 1;
-            qt2 = ((c - c % m) / m);
-            v1 = qt1 * (3 * m);
-            v2 = qt2 * (2 * m);
-            printf("%d mesas com adultos: R$%d\n", qt1, v1);
-            printf("%d mesas com criancas: R$%d\n", qt2, v2);
-        }
-        else if (resto2 >= 4)
-        {
-            qt1 = ((a - a % m) / m);
-            qt2 = ((c - c % m) / m) + 1;
-            v1 = qt1 * (3 * m);
-            v2 = qt2 * (2 * m);
-            printf("%d mesas com adultos: R$%d\n", qt1, v1);
-            printf("%d mesas com criancas: R$%d\n", qt2, v2);
+            qt4 = c + 1;
+            qt2 -= qt4;
         }
     }
+
+    v1 = qt1 * 3 * m;
+    v3 = qt3 * 4 * (m + 1);
+    v2 = qt2 * 2 * m;
+    v4 = qt4 * 3 * (m + 1);
+    v5 = qt5 * 2 * m;
+
+    if (v1 > 0)
+    {
+        printf("%d mesas com adultos: R$%d\n", qt1, v1);
+    }
+    if (v3 > 0)
+    {
+        printf("%d mesas com adultos+1: R$%d\n", qt3, v3);
+    }
+    if (v2 > 0)
+    {
+        printf("%d mesas com criancas: R$%d\n", qt2, v2);
+    }
+    if (v4 > 0)
+    {
+        printf("%d mesas com criancas+1: R$%d\n", qt4, v4);
+    }
+    if (v5 > 0)
+    {
+        printf("%d mesas mistas: R$%d\n", qt5, v5);
+    }
+    return 0;
 }
