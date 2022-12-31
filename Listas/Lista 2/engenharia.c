@@ -2,114 +2,66 @@
 
 int main()
 {
-    int x1 = 0, y1 = 0, i, j, m, n, k, cont = 0;
-    char x;
-    scanf("%d%c%d", &x1, &x, &y1);
-    if (y1 % 2 == 1)
+    int x, y, i, j, k, contalve = 0, contjan = 0, contali = 0, soma = 0;
+    scanf("%dx%d", &x, &y);
+    if (y % 2 == 1)
     {
-        if (x1 % 2 == 0)
+        for (i = 1; i <= x; i++)
         {
-            for (m = 0; m < (x1 - 2) / 2; m++)
+            if (i > x - 2)
             {
-                for (i = 0; i < y1; i++)
+                for (j = 1; j <= y; j++)
                 {
-                    printf("= ");
-                    if (i == y1 - 1)
+                    if (j == (((y - 1) / 2) + 1))
                     {
-                        printf("\n");
-                    }
-                }
-                for (j = 0; j <= (y1 - 1) / 2; j++)
-                {
-                    if (j == (y1 - 1) / 2)
-                    {
-                        printf("= \n");
+                        printf("H ");
                     }
                     else
-                        printf("= o ");
-                }
-                if (m == (x1 / 2) - 2)
-                {
-                    while (cont != 2)
                     {
-                        for (n = 0; n < y1; n++)
-                        {
-                            if (n == (y1 - 1) / 2)
-                            {
-                                printf("H ");
-                            }
-                            else
-                                printf("= ");
-
-                            if (n == y1 - 1)
-                            {
-                                printf("\n");
-                            }
-                        }
-                        cont++;
-                        if (cont == 2)
-                        {
-                            for (k = 0; k < (y1 * 2) - 1; k++)
-                            {
-                                printf("-");
-                            }
-                        }
+                        printf("= ");
+                        contalve++;
+                    }
+                }
+                if (i > x - 1)
+                {
+                    printf("\n");
+                    for (k = 0; k < (y * 2) - 1; k++)
+                    {
+                        printf("-");
+                        contali++;
                     }
                 }
             }
-        }
-        else if (x1 % 2 == 1)
-        {
-            for (m = 0; m < ((x1 - 1) / 2) - 1; m++)
+            else if (i % 2 == 0)
             {
-                for (i = 0; i < y1; i++)
+                for (j = 1; j <= y; j++)
                 {
-                    printf("= ");
-                    if (i == y1 - 1)
+                    if (j % 2 != 0)
                     {
-                        printf("\n");
-                    }
-                }
-                for (j = 0; j <= (y1 - 1) / 2; j++)
-                {
-                    if (j == (y1 - 1) / 2)
-                    {
-                        printf("= \n");
+                        printf("= ");
+                        contalve++;
                     }
                     else
-                        printf("= o ");
-                }
-                if (m == (x1 / 2) - 2)
-                {
-                    while (cont != 2)
                     {
-                        for (n = 0; n < y1; n++)
-                        {
-                            if (n == (y1 - 1) / 2)
-                            {
-                                printf("H ");
-                            }
-                            else
-                                printf("= ");
-
-                            if (n == y1 - 1)
-                            {
-                                printf("\n");
-                            }
-                        }
-                        cont++;
-                        if (cont == 2)
-                        {
-                            for (k = 0; k < (y1 * 2) - 1; k++)
-                            {
-                                printf("-");
-                            }
-                        }
+                        printf("o ");
+                        contjan++;
                     }
                 }
             }
+            else if (i % 2 != 0)
+            {
+                for (j = 1; j <= y; j++)
+                {
+                    printf("= ");
+                    contalve++;
+                }
+            }
+            printf("\n");
         }
+        soma = 500 + contalve * 85 + contjan * 250 + contali * 133;
+        printf("\n");
+        printf("E o valor total eh %d", soma);
     }
     else
-        printf("Nao posso construir nessas proporcoes");
+        printf("Nao posso construir nessas proporcoes\n");
 }
