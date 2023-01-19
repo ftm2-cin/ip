@@ -14,7 +14,7 @@ int main()
     switch (operador)
     {
     case '+':
-        soma = num1 + num2;
+        soma = num1 - num2;
         printf("A soma desses numeros e %.2f\n", soma);
         break;
     case '-':
