@@ -2,13 +2,11 @@
 
 int main()
 {
-    int vetor[100], i = 0, j, cache, cont = 0;
-    // SCAN DO VETOR
+    int vetor[10000], i = 0, j, cache, cont = 0;
     while (scanf("%d", &vetor[i]) != EOF)
     {
         i++;
     }
-    // SORT
     for (int a = 0; a < i; a++)
     {
 
@@ -22,35 +20,35 @@ int main()
                 vetor[b - 1] = cache;
             }
         }
-    }
-    // VERIFICAÇÃO DE IMPAR
-    for (int j = 0; j < i; j++)
-    {
-        cont = 0;
-        for (int z = 0; z < j + 2; z++)
-        {
-            if (vetor[j] == vetor[z])
-            {
-                cont++;
-            }
-        }
 
-        if (cont < 2 || cont == 3)
+        for (int j = 0; j < i; j++)
         {
-            for (int z = 0; z < i; z++)
+            cont = 0;
+            for (int z = 0; z < j + 2; z++)
             {
-                printf("%d ", vetor[z]);
+                if (vetor[j] == vetor[z])
+                {
+                    cont++;
+                }
             }
-            printf("\n%d", vetor[j]);
-            cache = 0;
+
+            if (cont < 2 || cont == 3)
+            {
+                for (int z = 0; z < i; z++)
+                {
+                    printf("%d ", vetor[z]);
+                }
+                printf("\n%d", vetor[j]);
+                cache = 0;
+            }
         }
-    }
-    if (cache == 1)
-    {
-        for (j = 0; j < i; j++)
+        if (cache == 1)
         {
-            printf("%d ", vetor[j]);
+            for (j = 0; j < i; j++)
+            {
+                printf("%d ", vetor[j]);
+            }
+            printf("\n0");
         }
-        printf("\n0");
     }
 }
