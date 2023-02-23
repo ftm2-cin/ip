@@ -1,17 +1,18 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 
-int recursive_function(int x, int y, char **matrix, int rows, int cols);
+#define MAX_ROWS 100
+#define MAX_COLS 100
+
+int recursive_function(int x, int y, char matrix[][MAX_COLS], int rows, int cols);
 
 int main() {
     int rows, cols;
     scanf("%d", &rows);
     scanf("%d", &cols);
 
-    char **matrix = (char **) malloc(rows * sizeof(char *));
+    char matrix[MAX_ROWS][MAX_COLS];
     for (int i = 0; i < rows; i++) {
-        matrix[i] = (char *) malloc(cols * sizeof(char));
         scanf("%s", matrix[i]);
     }
 
@@ -29,15 +30,10 @@ int main() {
         printf("%s\n", matrix[i]);
     }
 
-    for (int i = 0; i < rows; i++) {
-        free(matrix[i]);
-    }
-    free(matrix);
-
     return 0;
 }
 
-int recursive_function(int x, int y, char **matrix, int rows, int cols) {
+int recursive_function(int x, int y, char matrix[][MAX_COLS], int rows, int cols) {
     if (y >= rows || x >= cols || x < 0 || matrix[y][x] == 'o') {
         return 1;
     }
