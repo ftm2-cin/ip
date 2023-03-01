@@ -13,7 +13,7 @@ int main()
         {
             scanf("%d", &vetorP[a]);
         }
-        vetorP[qtd]=100000;
+        vetorP[qtd] = 100000;
         for (int a = 0; a < qtd; a++)
         {
             cache1 = vetorP[a];
