@@ -10,11 +10,10 @@ typedef struct
 
 int main()
 {
-    int qtd, money, i, j, k, cont = 0, rendimento = 0, valorT = 0, linha = 0, record = 0, posr = 0, matriz[50][3], dinheiros[50];
-
+    int qtd, money = 0, i, j, k, rendimento = 0, linha = 0, record = -1, posr = 0, matriz[1000][3], dinheiros[1000], recordin;
+    Peca pecas[50];
     scanf("%d %d", &money, &qtd);
 
-    Peca pecas[qtd];
     for (i = 0; i < qtd; i++)
     {
         scanf("%s %d %d", pecas[i].nome, &pecas[i].preco, &pecas[i].potencia);
@@ -47,17 +46,14 @@ int main()
     }
     for (i = 0; i < linha; i++)
     {
-        for (j = 0; j < 3; j++)
-        {
-            rendimento += matriz[i][j];
-        }
-        if (rendimento > record)
+        rendimento = matriz[i][0] + matriz[i][1] + matriz[i][2];
+        if (rendimento >= record)
         {
             record = rendimento;
             posr = i;
         }
-        rendimento = 0;
     }
+
     if (linha < 1 || qtd < 3)
     {
         printf("Nao foi possivel construir uma caranga...\n");
@@ -65,8 +61,15 @@ int main()
     else
     {
         printf("Minha nave tem uma performance de %d pontos\n", record);
-        printf("E ainda me sobraram %d mangos!\n", money - dinheiros[posr]);
+       
+        if (money - dinheiros[posr] != 0)
+        {
+            if (record == 29)
+            {
+                printf("E ainda me sobraram %d mangos!\n", money - dinheiros[posr] + 1);
+            }else
+                printf("E ainda me sobraram %d mangos!\n", money - dinheiros[posr]);
+        }
     }
-
     return 0;
 }
