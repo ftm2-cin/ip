@@ -11,7 +11,7 @@ int main(void)
     for (int a = 0; a < 5; a++)
     {
 
-        for (int b = 0; b < 5; b++)
+        for (int b = 1; b < 5; b++)
         {
 
             if (vetorX[b - 1] > vetorX[b])
