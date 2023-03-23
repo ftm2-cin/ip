@@ -66,7 +66,9 @@ int main(){
             stop++;
         }   
     }
+
     lista = (Material *)realloc(lista, stop * sizeof(Material));
+    
     crescente_alfa(lista, stop);
 
     for (int i = 0; i < stop; i++)
