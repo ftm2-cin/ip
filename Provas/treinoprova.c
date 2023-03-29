@@ -96,9 +96,18 @@ void cadastrarUsuario(Usuario** usuarios, int *qtd, char *name, char *passw)
     (*usuarios)[*qtd].qtdRecebidos=0;
     (*qtd)++;
 
-    printf("\nUsuario Cadastrado!\n");
+    FILE* fp = fopen("users.bin", "ab");
+    if (fp == NULL) {
+        printf("Erro ao abrir arquivo!\n");
+        exit(1);
+    }
 
+    fwrite(&(*usuarios)[*qtd-1], sizeof(Usuario), 1, fp);
+    fclose(fp);
+
+    printf("\nUsuario Cadastrado!\n");
 }
+
 
 void login(Usuario *usuarios, int qtd)
 {
@@ -205,7 +214,22 @@ void enviarEmail(char *nomeRemetente, Usuario* usuarios, int qtd)
     usuarios[iDest].recebidos[usuarios[iDest].qtdRecebidos] = novo;
     usuarios[iDest].qtdRecebidos++;
 
+    // Atualizar informações no arquivo users.bin
+    FILE *arquivo;
+    arquivo = fopen("users.bin", "rb+");
+    if (ferror(arquivo)) {
+        printf("Erro ao abrir o arquivo");
+        exit(1);
+    }
+
+    for (int i = 0; i < qtd; i++) {
+        fseek(arquivo, i*sizeof(Usuario), SEEK_SET);
+        fwrite(&usuarios[i], sizeof(Usuario), 1, arquivo);
+    }
+
+    fclose(arquivo);
 }
+
 
 void verRecebidos(Usuario usuario)
 {

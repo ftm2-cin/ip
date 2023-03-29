@@ -1,82 +1,66 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
-char* carregaPrograma(char *nomArq, int *tam){
-
-    FILE*meuArq;
-    char* vet = NULL;
-    char i = NULL;
-
-    if((meuArq = fopen(nomArq, "ab+")) != NULL)
-    {   
-        *tam = (int) ftell(meuArq);
-        fseek(meuArq, 0, SEEK_SET);
-        if((vet = (char*) malloc(*tam)) == NULL)
-        {
-            exit(1);
-        } else
-        fread(vet, sizeof(char), ftell(meuArq), meuArq);                
-        fclose(meuArq);
+char *carregaPrograma(char *nomArq, int *tam) {
+    FILE *prog;
+    char *vet = NULL;
+    if((prog=fopen(nomArq, "ab+"))!=NULL) {
+        *tam = (int) ftell(prog);
+        fseek(prog, 0, SEEK_SET);
+        if((vet = (char *) malloc(*tam))==NULL) exit(1);
+        fread(vet, sizeof(char), *tam, prog);
+        fclose(prog);
     }
     return vet;
 }
-char* read(char* vet, int* tam, int* pc)
-{
-    vet = (char *) realloc(vet, (*tam)+1);
-    (*tam)++;
-    scanf("%d", &vet[*tam]);
+
+char *doREAD(char *vet, int *tam, int *pc) {
+    int num;
+    vet = (char *) realloc(vet, (*tam) + 1);
+    scanf("%d", &num);
+    vet[(*tam)++] = num;
     (*pc)++;
+    return vet;
 }
-void write(char* vet, int* pc)
-{
-    printf("%c", vet[vet[(*pc)+1]]);
+
+void doADD_ACC(char *vet, int *acum, int *pc) {
+    *acum += vet[*pc+1]; *pc += 2;
 }
-void assign(char* vet, int* tam, int* pc)
-{
-    if(vet[(*pc)+1] > (*tam) - 1)
-    {
-        if((vet = (char *) realloc(vet, vet[(*pc)+1])) == NULL)
-        {
-            exit(1);
-        } else *tam = vet[(*pc)+1];
+
+void doJNZ(char *vet, int acum, int *pc) {
+    if(acum >= 0) *pc = vet[*pc+1]; else *pc += 2;
+}
+
+char *doASG(char *vet, int *tam, int *pc) {
+    if(vet[(*pc)+1] > (*tam) - 1) {
+        if((vet = (char *) realloc(vet, vet[(*pc)+1]))==NULL) {
+            printf("Problema de alocacao na funcao doASG\n"); exit(1);
+        }
+        *tam = vet[(*pc)+1];
     }
     vet[vet[(*pc)+1]] = vet[(*pc)+2];
-    *pc+= 3;
+    *pc += 3;
+    return vet;
 }
-char* interpretador (char* vet, int* tam)
-{
-    int pc = 0; 
-    int acum = 0;
 
-    while(vet[pc]!=10) // Final do programa
-    {
-        switch(vet[pc])
-        {
-            case 0: vet = read(vet, &tam, &pc); break;
-            case 1: write(vet, &pc); break;
-            case 5: acum += vet[pc+1]; break;
-            case 6: acum = vet[pc+1] - acum; break;
-            case 7: acum -= vet[pc+1]; break;
-            case 8: if(acum>=0) pc = vet[pc+1]; break;
-            case 9: assign(vet, &tam, &pc); break;
+char *interpretador(char *vet, int *tam) {
+    int pc = 0, acum = 0;
+    while(vet[pc]!=10) { // Final do programa
+        switch(vet[pc]) { // Comando da vez
+            case 0: vet = doREAD(vet, tam, &pc); break;
+            case 5: doADD_ACC(vet, &acum, &pc); break;
+            case 8: doJNZ(vet, acum, &pc); break;
+            case 9: vet = doASG(vet, tam, &pc); break;
         }
     }
-
+    return vet;
 }
 
-
-int main()
-{
-
-    char* vet = NULL;
+int main() {
+    char *vet = NULL;
     int tam = 0;
-
     vet = carregaPrograma("prog.bin", &tam);
-
     vet = interpretador(vet, &tam);
-
     free(vet);
-
     return 0;
 }

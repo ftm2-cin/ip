@@ -22,6 +22,7 @@ int main()
             scanf("%s %f %d", lista[tamanhoLista].nome, &lista[tamanhoLista].valor, &lista[tamanhoLista].quantidade);
             tamanhoLista++;
         }
+
         else if (strcmp(funcao, "REMOVER") == 0)
         {
             scanf("%s %d", produto, &qtd_remover);
@@ -66,7 +67,8 @@ int main()
                 valor = valor + (lista[i].valor * lista[i].quantidade);
             }
             printf("Atualmente a lista esta em R$%.1f\n\n", valor);
-        }else if (strcmp(funcao, "PROCURAR") == 0)
+        }
+        else if (strcmp(funcao, "PROCURAR") == 0)
         {
             char palavra[30];
             scanf("%s", palavra);
@@ -80,10 +82,11 @@ int main()
                 {
                     printf("%s\n- %.1f\n- %d\n\n", lista[i].nome, lista[i].valor, lista[i].quantidade);
                     break;
-                }else if (i == tamanhoLista - 1)
+                }
+                else if (i == tamanhoLista - 1)
                 {
                     printf("%s nao foi encontrado.\n\n", palavra);
-                }    
+                }
             }
         }
     }
