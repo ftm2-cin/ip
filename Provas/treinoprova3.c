@@ -149,7 +149,7 @@ int main()
         case 6:
             if (!pilhaVazia(tamPilha))
             {
-                Complexo *cPilha = recuperePilha(&tamPilha);
+                cPilha = recuperePilha(&tamPilha);
                 for (int i = 0; i < tamPilha; i++)
                 {
                     printf("%.2f + %.2fi\n", cPilha[i].pReal, cPilha[i].pImag);

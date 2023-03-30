@@ -149,6 +149,7 @@ int main()
     char nomeArq[] = "eleitores.txt";
     int qtdEleitores = 0;
     Eleitor *eleitores = carregarEleitores(nomeArq, &qtdEleitores);
+    carregarCandidatos(nomeArq);
 
     if (eleitores != NULL)
     {
